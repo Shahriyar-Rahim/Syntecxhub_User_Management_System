@@ -23,3 +23,17 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => console.log(`Server running on localhost:${port}`));
+
+process.on('SIGINT', async () => {
+    console.log('SIGINT signal received: closing HTTP server');
+    await mongoose.connection.close();
+    console.log('MongoDB connection closed.');
+    process.exit(0);
+});
+
+// This handles Nodemon restarts specifically
+process.on('SIGUSR2', async () => {
+    await mongoose.connection.close();
+    console.log('MongoDB closed for Nodemon restart.');
+    process.kill(process.pid, 'SIGUSR2');
+});
