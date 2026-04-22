@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../features/auth/authApiSlice";
 import { logOut } from "../features/auth/authSlice";
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  // Get auth state from Redux store
+  // This is the "Listener". When user becomes null, the UI swaps.
   const { user } = useSelector((state) => state.auth);
   
-  // Get logout mutation from your API slice
   const [logoutApiCall] = useLogoutMutation();
 
   const handleLogout = async () => {
@@ -21,10 +19,9 @@ const NavBar = () => {
       dispatch(logOut());
       navigate("/");
     } catch (err) {
-      console.error("Failed to log out", err);
-      // Even if backend fails, clear local state
+      // Fallback: clear local state even if server is down
       dispatch(logOut());
-      navigate("/");
+      navigate("/login");
     }
   };
 
@@ -33,7 +30,6 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           
-          {/* Logo - Clicks back to home */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
               S
@@ -43,38 +39,34 @@ const NavBar = () => {
             </span>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 items-center">
-            {["Home", "Users", "Services", "Contact"].map((item) => (
-              <a
-                key={item}
-                href="/"
-                className="text-gray-600 hover:text-blue-600 font-medium transition"
-              >
-                {item}
-              </a>
-            ))}
-
-            {/* Conditional Auth Rendering */}
+          <div className="hidden md:flex space-x-6 items-center">
+            {/* Conditional Rendering starts here */}
             {user ? (
-              <div className="flex items-center gap-4">
+              <>
                 <Link to="/dashboard" className="text-gray-600 hover:text-blue-600 font-medium transition">
                   Dashboard
                 </Link>
+                <div className="h-4 w-[1px] bg-gray-200"></div>
+                <span className="text-sm text-gray-500 italic">Hi, {user.name || 'User'}</span>
                 <button 
                   onClick={handleLogout}
                   className="bg-red-50 text-red-600 px-5 py-2 rounded-full font-medium hover:bg-red-100 transition"
                 >
                   Logout
                 </button>
-              </div>
+              </>
             ) : (
-              <Link 
-                to="/login"
-                className="bg-blue-600 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-200"
-              >
-                Login
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link to="/register" className="text-gray-600 hover:text-blue-600 font-medium transition">
+                  Register
+                </Link>
+                <Link 
+                  to="/login"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-200"
+                >
+                  Login
+                </Link>
+              </div>
             )}
           </div>
         </div>

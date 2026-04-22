@@ -90,6 +90,7 @@ const logout = async (req, res) => {
       httpOnly: true,
       sameSite: "strict",
       path: "/",
+      expires: new Date(0),
     });
 
     res.status(200).json({

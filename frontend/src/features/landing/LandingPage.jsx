@@ -17,7 +17,7 @@ const LandingPage = () => {
           </p>
           <div className="flex gap-4 pt-4">
             <Link 
-              to="/login" 
+              to="/dashboard"
               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-200"
             >
               View Dashboard
