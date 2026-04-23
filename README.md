@@ -1,6 +1,6 @@
 # Syntecxhub User Management System
 
-![Project Banner](https://via.placeholder.com/1200x400?text=Syntecxhub+User+Management+System)
+![Project Banner](./public/Screenshot.png)
 
 ## 📋 Table of Contents
 
