@@ -15,7 +15,7 @@ const port = process.env.PORT;
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://your-frontend-app.vercel.app"],
+    origin: ["http://localhost:5173", "https://syntecxhub-user-management-system-6.vercel.app"],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
