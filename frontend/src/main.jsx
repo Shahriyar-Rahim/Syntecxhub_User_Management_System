@@ -10,6 +10,7 @@ import App from "./App";
 import LandingPage from "./features/landing/LandingPage";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
+import Docs from "./components/Docs";
 
 // Placeholder for protected route
 import UserDashboard from "./components/UserDashboard";
@@ -42,6 +43,7 @@ createRoot(document.getElementById("root")).render(
                 </ProtectedRoute>
               }
             />
+            <Route path="docs" element={<Docs />} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />

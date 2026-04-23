@@ -23,7 +23,7 @@ const LandingPage = () => {
               View Dashboard
             </Link>
             <a 
-              href="#docs" 
+              href="/docs" 
               className="bg-blue-50 text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-100 transition"
             >
               Documentation
